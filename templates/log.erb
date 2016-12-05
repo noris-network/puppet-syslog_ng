@@ -3,8 +3,10 @@ log {
 <% @sources.each      do |source| -%>
   source(<%= source %>);
 <% end -%>
+<% if @filters -%>
 <% @filters.each      do |filter| -%>
   filter(<%= filter %>);
+<% end -%>
 <% end -%>
 <% @destinations.each do |destination| -%>
   destination(<%= destination %>);
