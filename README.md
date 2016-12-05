@@ -8,11 +8,13 @@ into a nice, easy to read, single configuration file.
 
 To build your configuration, you'll need the main class, and at least one source, destination and log statement.
 
-Here is an example for a simple configuation logging everything to /var/log/messages:
+Here is an example for a simple configuration which logs everything to /var/log/messages:
 
 Load the main class.
 ```puppet
-  import syslog_ng
+  include ::syslog_ng
+  # or
+  class{'::syslog_ng':}
 ```
 
 Create a source:
@@ -37,7 +39,7 @@ Link them together with a log statement:
   }
 ```
 
-You can allso create filter definitions with:
+You can also create filter definitions with the syslog\_ng::filter define:
 
 ```puppet
   syslog_ng::filter {'f_sshd':
