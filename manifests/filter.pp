@@ -6,11 +6,15 @@
 #
 define syslog_ng::filter ( $definition ){
 
-  $type = 'filter'
+  $data = {
+    'title'      => $title,
+    'type'       => 'filter',
+    'definition' => $definition,
+  }
 
   concat::fragment { "/etc/syslog-ng/syslog-ng.conf-main-filter-${title}":
     target  => '/etc/syslog-ng/syslog-ng.conf',
-    content => template("${module_name}/statement.erb"),
+    content => epp("${module_name}/statement.epp", $data),
     order   => 3,
   }
 }

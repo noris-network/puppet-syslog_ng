@@ -1,0 +1,30 @@
+<%
+  $dns = $syslog_ng::use_dns ? { true => 'yes', false => 'no' }
+  $fqdn = $syslog_ng::use_fqdn ? { true => 'yes', false => 'no' }
+  $timestamp = $syslog_ng::keep_timestamp ? { true => 'yes', false => 'no' }
+-%>
+###############################################################
+# This file is managed by puppet. Manual editing of file is   #
+# strongly discouraged and might lead to unexpected behaviour!#
+###############################################################
+
+@version: <%= $syslog_ng::version %>
+
+
+options {
+        chain_hostnames(0);
+        time_reopen    (10);
+        time_reap      (360);
+        log_fifo_size  (4096);
+        create_dirs    (yes);
+        group          (adm);
+        perm           (<%= $syslog_ng::perm %>);
+        dir_perm       (<%= $syslog_ng::dir_perm %>);
+        use_dns        (<%= $dns %>);
+        use_fqdn       (<%= $fqdn %>);
+        stats_freq     (0);
+        bad_hostname   ("^gconfd$");
+        frac_digits    (<%= $syslog_ng::frac_digits %>);
+        keep_timestamp (<%= $timestamp %>);
+};
+

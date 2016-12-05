@@ -1,0 +1,16 @@
+<%-| String $title, Array $sources, Optional[Array] $filters = undef, Array $destinations |-%>
+# <%= $title %>
+log {
+<% $sources.each |$source| { -%>
+  source(<%= $source %>);
+<% } -%>
+<% unless $filters =~ Undef { -%>
+<% $filters.each |$filter| { -%>
+  filter(<%= $filter %>);
+<% } -%>
+<% } -%>
+<% $destinations.each |$destination| { -%>
+  destination(<%= $destination %>);
+<% } -%>
+};
+

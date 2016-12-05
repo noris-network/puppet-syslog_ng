@@ -8,8 +8,5 @@ class syslog_ng::install {
   package { 'syslog-ng':
     ensure => installed,
   }
-  package { 'rsyslog':
-    ensure => absent,
-  }
 
 }

@@ -6,11 +6,15 @@
 #
 define syslog_ng::source ( $definition ){
 
-  $type = 'source'
+  $data = {
+    'title'      => $title,
+    'type'       => 'source',
+    'definition' => $definition,
+  }
 
   concat::fragment { "/etc/syslog-ng/syslog-ng.conf-main-source-${title}":
     target  => '/etc/syslog-ng/syslog-ng.conf',
-    content => template("${module_name}/statement.erb"),
+    content => epp("${module_name}/statement.epp", $data),
     order   => 2,
   }
 }

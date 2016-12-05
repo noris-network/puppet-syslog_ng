@@ -10,9 +10,16 @@ define syslog_ng::log (
   $filters=undef,
   ){
 
+  $data = {
+    'title'        => $title,
+    'destinations' => $destinations,
+    'sources'      => $sources,
+    'filters'      => $filters,
+  }
+
   concat::fragment { "/etc/syslog-ng/syslog-ng.conf-main-log-${title}":
     target  => '/etc/syslog-ng/syslog-ng.conf',
-    content => template("${module_name}/log.erb"),
+    content => epp("${module_name}/log.epp", $data),
     order   => 5,
   }
 }
